@@ -12,12 +12,18 @@ public class Waypoint {
     private float myRadius;
     private JSONObject myJSONObject;
 
-    public Waypoint(float x, float y, float r){
+    public Waypoint(float x, float y, float r, String mapName){
         myX = x;
         myY = y;
         myRadius = r;
         myJSONObject = new JSONObject();
-
+        try {
+            myJSONObject.put("x", myX);
+            myJSONObject.put("y", myY);
+            myJSONObject.put("mname", mapName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean hasTouched(float x, float y){
@@ -51,6 +57,10 @@ public class Waypoint {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public JSONObject getJSONObject(){
+        return myJSONObject;
     }
 
 }
