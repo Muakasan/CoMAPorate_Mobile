@@ -4,5 +4,7 @@
     <string name="app_name">CoMAPorate</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="tab_name_hint">Tag Name</string>
+    <string name="tab_value_hint">Tag Value</string>
 
 </resources>
