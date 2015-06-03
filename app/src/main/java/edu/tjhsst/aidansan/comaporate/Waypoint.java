@@ -1,5 +1,8 @@
 package edu.tjhsst.aidansan.comaporate;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by 2016asan on 5/22/2015.
  */
@@ -7,11 +10,14 @@ public class Waypoint {
     private float myX;
     private float myY;
     private float myRadius;
+    private JSONObject myJSONObject;
 
     public Waypoint(float x, float y, float r){
         myX = x;
         myY = y;
         myRadius = r;
+        myJSONObject = new JSONObject();
+
     }
 
     public boolean hasTouched(float x, float y){
@@ -28,6 +34,23 @@ public class Waypoint {
 
     public float getY(){
         return myY;
+    }
+
+    public void addTag(String tagName, String tagValue){
+        try {
+            myJSONObject.put(tagName, tagValue);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getTag(String tagName){
+        try {
+            return myJSONObject.getString(tagName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
