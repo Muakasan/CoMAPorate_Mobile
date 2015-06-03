@@ -48,7 +48,9 @@ public class MapImageView extends ImageView {
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
-        canvas.drawCircle(myX, myY, myRadius, myPaint); //fix this 20 is prob not what you want
+        for(Waypoint w: arrayList) {
+            canvas.drawCircle(w.getX(), w.getY(), w.getRadius(), myPaint); //fix this 20 is prob not what you want
+        }
     }
 
     private void setUpPaint(){

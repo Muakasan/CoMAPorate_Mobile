@@ -18,4 +18,16 @@ public class Waypoint {
         return Math.sqrt(Math.pow((x-myX), 2)+Math.pow((y-myY), 2))<myRadius;
     }
 
+    public float getX(){
+        return myX;
+    }
+
+    public float getRadius(){
+        return myRadius;
+    }
+
+    public float getY(){
+        return myY;
+    }
+
 }
