@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
@@ -20,11 +21,11 @@ public class MapImageView extends ImageView {
     private ArrayList<Waypoint> arrayList; //change this later maybe?
     private float myRadius;
 
-    public MapImageView(Context context){
-        super(context);
+    public MapImageView(Context context, AttributeSet attrs){
+        super(context, attrs);
         setUpPaint();
         arrayList = new ArrayList<Waypoint>();
-        myRadius = 20;
+         myRadius = 20;
     }
 
     @Override
@@ -55,4 +56,5 @@ public class MapImageView extends ImageView {
         myPaint.setStyle(Paint.Style.FILL);
         myPaint.setColor(Color.RED); //always red?
     }
+
 }

@@ -3,6 +3,7 @@ package edu.tjhsst.aidansan.comaporate;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,9 +14,10 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+        Log.i("meh", "meh");
         mapView = (MapImageView) findViewById(R.id.mapView);
-        //mapView.setImageDrawable();
+        mapView.setImageResource(R.drawable.map2);
         //mapView.setImageURI(Uri.parse("map.gif"));
     }
 
