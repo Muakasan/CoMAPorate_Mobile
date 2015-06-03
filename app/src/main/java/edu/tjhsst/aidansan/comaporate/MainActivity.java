@@ -7,18 +7,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-//useless comment
-//useless comment 2
+
 public class MainActivity extends ActionBarActivity {
     private MapImageView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i("meh", "meh");
         mapView = (MapImageView) findViewById(R.id.mapView);
         mapView.setImageResource(R.drawable.map2);
-        //mapView.setImageURI(Uri.parse("map.gif"));
     }
 
 
