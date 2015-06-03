@@ -7,39 +7,52 @@ import org.json.JSONObject;
  * Created by 2016asan on 5/22/2015.
  */
 public class Waypoint {
-    private float myX;
-    private float myY;
-    private float myRadius;
     private JSONObject myJSONObject;
 
     public Waypoint(float x, float y, float r, String mapName){
-        myX = x;
-        myY = y;
-        myRadius = r;
         myJSONObject = new JSONObject();
         try {
-            myJSONObject.put("x", myX);
-            myJSONObject.put("y", myY);
+            myJSONObject.put("x", x);
+            myJSONObject.put("y", y);
+            myJSONObject.put("radius", r);
             myJSONObject.put("mname", mapName);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+    public Waypoint(JSONObject jsonObject){
+        myJSONObject = jsonObject;
+    }
+
     public boolean hasTouched(float x, float y){
-        return Math.sqrt(Math.pow((x-myX), 2)+Math.pow((y-myY), 2))<myRadius;
+        return Math.sqrt(Math.pow((x-getX()), 2)+Math.pow((y-getY()), 2))<getRadius();
     }
 
     public float getX(){
-        return myX;
+        try {
+            return (float)myJSONObject.get("x");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public float getRadius(){
-        return myRadius;
-    }
+        try {
+            return (float)myJSONObject.get("radius");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return -1;    }
 
     public float getY(){
-        return myY;
+        try {
+            return (float)myJSONObject.get("y");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public void addTag(String tagName, String tagValue){
