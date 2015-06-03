@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -42,26 +43,35 @@ public class MapImageView extends ImageView {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent e){
+    public boolean onTouchEvent(MotionEvent e) throws IOException {
         myX = e.getX();
         myY = e.getY();
         Log.i("Coordinate of click", myX+", "+myY);
         for(Waypoint w: arrayList)
         {
-            if(w.hasTouched(myX, myY)){
+            if(w.hasTouched(myX, myY)) {
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost("http://example.com/mypage.php");
+                HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
                 try {
                     JSONObject json = w.getJSONObject();
-                    httppost.setEntity(new UrlEncodedFormEntity((List<? extends NameValuePair>) json));
-                    httpclient.execute(httppost);
+                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(json.length());
+                    Iterator<?> keys = json.keys();
 
-                } catch (IOException e1) {
+                    while (keys.hasNext()) {
+                        String key = (String) keys.next();
+                        if (json.get(key) instanceof JSONObject) {
+
+                        }
+                        nameValuePairs.add(new BasicNameValuePair("fname", "vinod"));
+                        httppost.setEntity(new UrlEncodedFormEntity(());
+                        httpclient.execute(httppost);
+
+                    }
+                } catch (JSONException e1) {
                     e1.printStackTrace();
                 }
                 return true;
             }
-        }
         arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
         postInvalidate();
         return true;
