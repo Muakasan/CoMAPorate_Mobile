@@ -10,17 +10,20 @@
             android:id="@+id/table_layout">
             <TableRow>
                 <EditText
-                    android:id="@+id/tag_name_tb"
+                    android:id="@+id/tag_name_search_tb"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:hint="@string/tab_name_hint"/>
 
                 <EditText
-                    android:layout_below="@+id/tag_name_tb"
-                    android:id="@+id/tag_value_tb"
+                    android:layout_below="@+id/tag_name_search_tb"
+                    android:id="@+id/tag_value_search_tb"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:hint="@string/tab_value_hint"/>
+                <Button
+                    android:text="@string/button_search"/>
+
             </TableRow>
     </TableLayout>
     <edu.tjhsst.aidansan.comaporate.MapImageView

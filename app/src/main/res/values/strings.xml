@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="tab_name_hint">Tag Name</string>
     <string name="tab_value_hint">Tag Value</string>
+    <string name="button_search">Search</string>
 
 </resources>

@@ -31,7 +31,8 @@ public class Waypoint {
 
     public float getX(){
         try {
-            return (float)myJSONObject.get("x");
+            double x = (double)myJSONObject.get("x");
+            return (float)x;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -40,7 +41,8 @@ public class Waypoint {
 
     public float getRadius(){
         try {
-            return (float)myJSONObject.get("radius");
+            double r = (double)myJSONObject.get("radius");
+            return (float)r;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -48,7 +50,8 @@ public class Waypoint {
 
     public float getY(){
         try {
-            return (float)myJSONObject.get("y");
+            double y = (double)myJSONObject.get("y");
+            return (float)y;
         } catch (JSONException e) {
             e.printStackTrace();
         }
