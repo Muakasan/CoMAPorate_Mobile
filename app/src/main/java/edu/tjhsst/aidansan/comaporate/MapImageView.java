@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -37,33 +39,39 @@ public class MapImageView extends ImageView {
     public MapImageView(Context context, AttributeSet attrs){
         super(context, attrs);
         setUpPaint();
-        arrayList = new ArrayList<Waypoint>();
+        arrayList = new ArrayList<>();
          myRadius = 20;
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent e){
+    public boolean onTouchEvent(@NonNull MotionEvent e) {
         myX = e.getX();
         myY = e.getY();
-        Log.i("Coordinate of click", myX+", "+myY);
-        for(Waypoint w: arrayList)
-        {
-            if(w.hasTouched(myX, myY)){
+        Log.i("Coordinate of click", myX + ", " + myY);
+        for (Waypoint w : arrayList) {
+            if (w.hasTouched(myX, myY))
+            {
                 HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost("http://example.com/mypage.php");
-                try {
+                HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
+                try
+                {
                     JSONObject json = w.getJSONObject();
-                    httppost.setEntity(new UrlEncodedFormEntity((List<? extends NameValuePair>) json));
+                    List<NameValuePair> nameValuePairs = new ArrayList<>(json.length());
+                    Iterator<?> keys = json.keys();
+                    while (keys.hasNext())
+                    {
+                        String key = (String) keys.next();
+                        String value = (String) json.get(key);
+                        nameValuePairs.add(new BasicNameValuePair(key, value));
+                    }
+                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     httpclient.execute(httppost);
-
-                } catch (IOException e1) {
-                    e1.printStackTrace();
                 }
-                return true;
+                catch (JSONException | IOException ignored) {}
             }
-        }
-        arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
-        postInvalidate();
+            arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
+            postInvalidate();
+         }
         return true;
     }
 
