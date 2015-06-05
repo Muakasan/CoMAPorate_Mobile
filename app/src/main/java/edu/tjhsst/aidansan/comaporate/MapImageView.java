@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -38,12 +39,12 @@ public class MapImageView extends ImageView {
     public MapImageView(Context context, AttributeSet attrs){
         super(context, attrs);
         setUpPaint();
-        arrayList = new ArrayList<Waypoint>();
+        arrayList = new ArrayList<>();
          myRadius = 20;
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent e) {
+    public boolean onTouchEvent(@NonNull MotionEvent e) {
         myX = e.getX();
         myY = e.getY();
         Log.i("Coordinate of click", myX + ", " + myY);
