@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -51,7 +50,6 @@ public class MapImageView extends ImageView {
         for (Waypoint w : arrayList) {
             if (w.hasTouched(myX, myY))
             {
-                /*
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
                 try
@@ -63,14 +61,13 @@ public class MapImageView extends ImageView {
                     while (keys.hasNext())
                     {
                         String key = (String) keys.next();
-                        String value = (String) json.get(key);
+                        String value = (String) json.get(key).toString();
                         nameValuePairs.add(new BasicNameValuePair(key, value));
                     }
                     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
                     httpclient.execute(httppost);
                 }
                 catch (JSONException | IOException ignored) {}
-                */
             }
          }
         arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
