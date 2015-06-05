@@ -69,15 +69,16 @@ public class MapImageView extends ImageView {
                 }
                 catch (JSONException | IOException ignored) {}
             }
-            arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
-            postInvalidate();
          }
+        arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
+        postInvalidate();
         return true;
     }
 
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
+        //Log.i("arraylist", arrayList.toString());
         for(Waypoint w: arrayList) {
             canvas.drawCircle(w.getX(), w.getY(), w.getRadius(), myPaint); //fix this 20 is prob not what you want
         }
