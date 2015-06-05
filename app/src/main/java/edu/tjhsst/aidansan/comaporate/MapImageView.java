@@ -51,6 +51,7 @@ public class MapImageView extends ImageView {
         for (Waypoint w : arrayList) {
             if (w.hasTouched(myX, myY))
             {
+                /*
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
                 try
@@ -69,16 +70,18 @@ public class MapImageView extends ImageView {
                     httpclient.execute(httppost);
                 }
                 catch (JSONException | IOException ignored) {}
+                */
             }
-            arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
-            postInvalidate();
          }
+        arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
+        postInvalidate();
         return true;
     }
 
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
+        //Log.i("arraylist", arrayList.toString());
         for(Waypoint w: arrayList) {
             canvas.drawCircle(w.getX(), w.getY(), w.getRadius(), myPaint); //fix this 20 is prob not what you want
         }
