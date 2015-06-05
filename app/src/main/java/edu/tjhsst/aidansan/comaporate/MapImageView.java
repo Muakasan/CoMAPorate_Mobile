@@ -51,6 +51,7 @@ public class MapImageView extends ImageView {
         for (Waypoint w : arrayList) {
             if (w.hasTouched(myX, myY))
             {
+                /*
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
                 try
@@ -68,6 +69,7 @@ public class MapImageView extends ImageView {
                     httpclient.execute(httppost);
                 }
                 catch (JSONException | IOException ignored) {}
+                */
             }
          }
         arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
