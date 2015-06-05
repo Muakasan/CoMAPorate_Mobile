@@ -47,9 +47,11 @@ public class MapImageView extends ImageView {
         myX = e.getX();
         myY = e.getY();
         Log.i("Coordinate of click", myX + ", " + myY);
+        boolean touched = false;
         for (Waypoint w : arrayList) {
             if (w.hasTouched(myX, myY))
             {
+                touched = true;
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
                 try
@@ -61,7 +63,7 @@ public class MapImageView extends ImageView {
                     while (keys.hasNext())
                     {
                         String key = (String) keys.next();
-                        String value = (String) json.get(key).toString();
+                        String value = json.get(key).toString();
                         nameValuePairs.add(new BasicNameValuePair(key, value));
                     }
                     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -70,7 +72,8 @@ public class MapImageView extends ImageView {
                 catch (JSONException | IOException ignored) {}
             }
          }
-        arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
+        if(!touched)
+            arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
         postInvalidate();
         return true;
     }
