@@ -43,37 +43,34 @@ public class MapImageView extends ImageView {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent e) throws IOException {
+    public boolean onTouchEvent(MotionEvent e) {
         myX = e.getX();
         myY = e.getY();
-        Log.i("Coordinate of click", myX+", "+myY);
-        for(Waypoint w: arrayList)
-        {
-            if(w.hasTouched(myX, myY)) {
+        Log.i("Coordinate of click", myX + ", " + myY);
+        for (Waypoint w : arrayList) {
+            if (w.hasTouched(myX, myY))
+            {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
-                try {
+                try
+                {
                     JSONObject json = w.getJSONObject();
-                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(json.length());
+                    List<NameValuePair> nameValuePairs = new ArrayList<>(json.length());
                     Iterator<?> keys = json.keys();
-
-                    while (keys.hasNext()) {
+                    while (keys.hasNext())
+                    {
                         String key = (String) keys.next();
-                        if (json.get(key) instanceof JSONObject) {
-
-                        }
-                        nameValuePairs.add(new BasicNameValuePair("fname", "vinod"));
-                        httppost.setEntity(new UrlEncodedFormEntity(());
-                        httpclient.execute(httppost);
-
+                        String value = (String) json.get(key);
+                        nameValuePairs.add(new BasicNameValuePair(key, value));
                     }
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
+                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+                    httpclient.execute(httppost);
                 }
-                return true;
+                catch (JSONException | IOException ignored) {}
             }
-        arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
-        postInvalidate();
+            arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
+            postInvalidate();
+         }
         return true;
     }
 
