@@ -48,13 +48,14 @@ public class MapImageView extends ImageView {
         myY = e.getY();
         Log.i("Coordinate of click", myX + ", " + myY);
         for (Waypoint w : arrayList) {
+            /*
             if (w.hasTouched(myX, myY))
             {
+
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
                 try
                 {
-                    //arbitrary comment
                     JSONObject json = w.getJSONObject();
                     List<NameValuePair> nameValuePairs = new ArrayList<>(json.length());
                     Iterator<?> keys = json.keys();
@@ -65,10 +66,12 @@ public class MapImageView extends ImageView {
                         nameValuePairs.add(new BasicNameValuePair(key, value));
                     }
                     httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                    httpclient.execute(httppost);
+                        httpclient.execute(httppost);
                 }
                 catch (JSONException | IOException ignored) {}
+
             }
+            */
          }
         arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
         postInvalidate();
