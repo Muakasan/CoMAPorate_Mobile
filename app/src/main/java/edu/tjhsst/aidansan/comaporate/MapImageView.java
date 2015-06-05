@@ -55,6 +55,7 @@ public class MapImageView extends ImageView {
                 HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
                 try
                 {
+                    //arbitrary comment
                     JSONObject json = w.getJSONObject();
                     List<NameValuePair> nameValuePairs = new ArrayList<>(json.length());
                     Iterator<?> keys = json.keys();
