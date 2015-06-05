@@ -44,7 +44,7 @@ public class MapImageView extends ImageView {
     }
 
     @Override
-    public boolean onTouchEvent(@NonNull MotionEvent e) {
+    public boolean onTouchEvent(MotionEvent e) {
         myX = e.getX();
         myY = e.getY();
         Log.i("Coordinate of click", myX + ", " + myY);
