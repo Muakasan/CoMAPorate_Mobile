@@ -94,5 +94,8 @@ public class MapImageView extends ImageView {
         myPaint.setStyle(Paint.Style.FILL);
         myPaint.setColor(Color.RED); //always red?
     }
+    public void getHTMLData()
+    {
 
+    }
 }
