@@ -66,6 +66,7 @@ public class MapImageView extends ImageView {
             JSONObject json = way.getJSONObject();
             jArray.put(json);
         }
+        nameValuePairs.add(new BasicNameValuePair("id", "12345"));
         nameValuePairs.add(new BasicNameValuePair("mname", "TJ"));
         nameValuePairs.add(new BasicNameValuePair("points", jArray.toString()));
         try
