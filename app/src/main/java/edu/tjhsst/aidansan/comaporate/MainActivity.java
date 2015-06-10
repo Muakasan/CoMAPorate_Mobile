@@ -1,5 +1,6 @@
 package edu.tjhsst.aidansan.comaporate;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -21,6 +23,7 @@ public class MainActivity extends ActionBarActivity {
         }
         mapView = (MapImageView) findViewById(R.id.mapView);
         mapView.setImageResource(R.drawable.map2);
+
     }
 
 

@@ -57,7 +57,7 @@ public class MapImageView extends ImageView {
         if(!touched) {
             arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
         }
-        List<NameValuePair> nameValuePairs = new ArrayList<>(2);
+        List<NameValuePair> nameValuePairs = new ArrayList<>(3);
         JSONArray jArray = new JSONArray();
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/receiver.php");

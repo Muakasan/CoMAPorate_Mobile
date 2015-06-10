@@ -7,5 +7,7 @@
     <string name="tab_name_hint">Tag Name</string>
     <string name="tab_value_hint">Tag Value</string>
     <string name="button_search">Search</string>
+    <string name="dialog_add_waypoint">Create a New Waypoint</string>
+    <string name="dialog_add_waypoint_title">Create Waypoint</string>
 
 </resources>
