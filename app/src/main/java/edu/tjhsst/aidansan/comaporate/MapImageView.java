@@ -16,6 +16,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,8 +30,6 @@ import java.util.List;
  * Created by 2016asan on 5/22/2015.
  */
 public class MapImageView extends ImageView {
-    private float myX;
-    private float myY;
     private Paint myPaint;
     private ArrayList<Waypoint> arrayList; //change this later maybe?
     private float myRadius;
@@ -44,36 +43,39 @@ public class MapImageView extends ImageView {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        myX = e.getX();
-        myY = e.getY();
+        float myX = e.getX();
+        float myY = e.getY();
         Log.i("Coordinate of click", myX + ", " + myY);
         boolean touched = false;
         for (Waypoint w : arrayList) {
             if (w.hasTouched(myX, myY))
             {
                 touched = true;
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/reciever.php");
-                try
-                {
-                    //arbitrary comment
-                    JSONObject json = w.getJSONObject();
-                    List<NameValuePair> nameValuePairs = new ArrayList<>(json.length());
-                    Iterator<?> keys = json.keys();
-                    while (keys.hasNext())
-                    {
-                        String key = (String) keys.next();
-                        String value = json.get(key).toString();
-                        nameValuePairs.add(new BasicNameValuePair(key, value));
-                    }
-                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                    httpclient.execute(httppost);
-                }
-                catch (JSONException | IOException ignored) {}
+                //Allow editing of touched waypoint with tag/value
             }
          }
-        if(!touched)
+        if(!touched) {
             arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
+        }
+        List<NameValuePair> nameValuePairs = new ArrayList<>(2);
+        JSONArray jArray = new JSONArray();
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/receiver.php");
+        for(Waypoint way : arrayList)
+        {
+            JSONObject json = way.getJSONObject();
+            jArray.put(json);
+        }
+        nameValuePairs.add(new BasicNameValuePair("mname", "TJ"));
+        nameValuePairs.add(new BasicNameValuePair("points", jArray.toString()));
+        try
+        {
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpclient.execute(httppost);
+        }
+        catch (IOException e1) {
+            Log.i("Error", "sending data to website");
+        }
         postInvalidate();
         return true;
     }
@@ -92,5 +94,8 @@ public class MapImageView extends ImageView {
         myPaint.setStyle(Paint.Style.FILL);
         myPaint.setColor(Color.RED); //always red?
     }
+    public void getHTMLData()
+    {
 
+    }
 }

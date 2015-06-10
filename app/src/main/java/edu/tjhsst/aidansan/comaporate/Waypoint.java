@@ -28,7 +28,9 @@ public class Waypoint {
     public boolean hasTouched(float x, float y){
         return Math.sqrt(Math.pow((x-getX()), 2)+Math.pow((y-getY()), 2))<getRadius();
     }
-
+    public String getMname() throws JSONException {
+        return (String)myJSONObject.get("mname");
+    }
     public float getX(){
         try {
             double x = (double)myJSONObject.get("x");
