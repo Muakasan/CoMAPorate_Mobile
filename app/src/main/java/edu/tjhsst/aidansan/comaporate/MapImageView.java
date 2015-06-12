@@ -9,23 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Created by 2016asan on 5/22/2015.
@@ -34,17 +18,18 @@ public class MapImageView extends ImageView {
     private Paint myPaint;
     private ArrayList<Waypoint> arrayList; //change this later maybe?
     private float myRadius;
-    private xInterface delegate;
+    private MapDialogInterface delegate;
 
     public MapImageView(Context context, AttributeSet attrs){
         super(context, attrs);
         setUpPaint();
         arrayList = new ArrayList<>();
-         myRadius = 20;
+        myRadius = 20;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
+        delegate.showAddWaypointDialog();
         float myX = e.getX();
         float myY = e.getY();
         Log.i("Coordinate of click", myX + ", " + myY);
@@ -81,6 +66,10 @@ public class MapImageView extends ImageView {
     public void getHTMLData()
     {
 
+    }
+
+    public void setDelegate(Activity activity){
+        delegate = (MapDialogInterface)activity;
     }
 
 }

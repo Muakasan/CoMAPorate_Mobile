@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 
 
-public class MainActivity extends ActionBarActivity implements DialogInterface{
+public class MainActivity extends ActionBarActivity implements MapDialogInterface{
     private MapImageView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,7 @@ public class MainActivity extends ActionBarActivity implements DialogInterface{
         }
         mapView = (MapImageView) findViewById(R.id.mapView);
         mapView.setImageResource(R.drawable.map2);
+        mapView.setDelegate(this);
 
     }
 
@@ -50,6 +51,6 @@ public class MainActivity extends ActionBarActivity implements DialogInterface{
     }
 
     public void showAddWaypointDialog(){
-
+        Log.i("Stuff", "Yay");
     }
 }
