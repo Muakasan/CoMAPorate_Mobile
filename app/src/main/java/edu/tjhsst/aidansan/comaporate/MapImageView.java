@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
 
+import com.firebase.client.Firebase;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -60,34 +62,19 @@ public class MapImageView extends ImageView {
         if(!touched) {
             arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
         }
-//        List<NameValuePair> nameValuePairs = new ArrayList<>(3);
-        JSONArray jArray = new JSONArray();
-        for(Waypoint way : arrayList)
+        Firebase fbase = new Firebase("https://comaporate.firebaseio.com/");
+        for(Waypoint w : arrayList)
         {
-            JSONObject json = way.getJSONObject();
-            jArray.put(json);
-        }
-        String filename = "comap_file";
-        String data = jArray.toString();
-        try {
-            Context c = this.getContext();
-            FileOutputStream fos = c.openFileOutput(filename, c.MODE_PRIVATE);
-            fos.write(data.getBytes());
-            fos.close();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+            String x = w.getX()+"";
+            String y = w.getY()+"";
+            x = x.replace('.', 'D');
+            y = y.replace('.', 'D');
+            fbase.child(x + "*" + y).setValue(w.getJSONObject().toString());
         }
         postInvalidate();
         return true;
     }
 
-    public JSONArray getPointsData() throws IOException {
-        String filename = "comap_file";
-        Context c = this.getContext();
-        FileInputStream fis = c.openFileInput(filename);
-        String s = fis.read();
-        fis.close();
-    }
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
@@ -101,9 +88,5 @@ public class MapImageView extends ImageView {
         myPaint = new Paint();
         myPaint.setStyle(Paint.Style.FILL);
         myPaint.setColor(Color.RED); //always red?
-    }
-    public void getHTMLData()
-    {
-
     }
 }
