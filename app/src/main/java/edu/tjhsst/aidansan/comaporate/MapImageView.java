@@ -20,6 +20,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -57,30 +60,34 @@ public class MapImageView extends ImageView {
         if(!touched) {
             arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
         }
-        List<NameValuePair> nameValuePairs = new ArrayList<>(2);
+//        List<NameValuePair> nameValuePairs = new ArrayList<>(3);
         JSONArray jArray = new JSONArray();
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/receiver.php");
         for(Waypoint way : arrayList)
         {
             JSONObject json = way.getJSONObject();
             jArray.put(json);
         }
-        nameValuePairs.add(new BasicNameValuePair("id", "12345"));
-        nameValuePairs.add(new BasicNameValuePair("mname", "TJ"));
-        nameValuePairs.add(new BasicNameValuePair("points", jArray.toString()));
-        try
-        {
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            httpclient.execute(httppost);
-        }
-        catch (IOException e1) {
-            Log.i("Error", "sending data to website");
+        String filename = "comap_file";
+        String data = jArray.toString();
+        try {
+            Context c = this.getContext();
+            FileOutputStream fos = c.openFileOutput(filename, c.MODE_PRIVATE);
+            fos.write(data.getBytes());
+            fos.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
         postInvalidate();
         return true;
     }
 
+    public JSONArray getPointsData() throws IOException {
+        String filename = "comap_file";
+        Context c = this.getContext();
+        FileInputStream fis = c.openFileInput(filename);
+        String s = fis.read();
+        fis.close();
+    }
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
