@@ -69,12 +69,25 @@ public class MapImageView extends ImageView {
             String y = w.getY()+"";
             x = x.replace('.', 'D');
             y = y.replace('.', 'D');
-            fbase.child(x + "*" + y).setValue(w.getJSONObject().toString());
+            try {
+                fbase.child(w.getMname()).child(x + "*" + y).setValue(w.getJSONObject().toString());
+            } catch (JSONException e1) {e1.printStackTrace();}
         }
         postInvalidate();
         return true;
     }
-
+    public JSONArray getPoints(String mname)
+    {
+        Firebase fbase = new Firebase("https://comaporate.firebaseio.com/");
+//        fbase.child("message").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot snapshot) {
+//                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
+//            }
+//            @Override public void onCancelled(FirebaseError error) { }
+//        });
+        return null;
+    }
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
