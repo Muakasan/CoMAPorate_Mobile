@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements DialogInterface{
     private MapImageView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,5 +47,9 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showAddWaypointDialog(){
+
     }
 }

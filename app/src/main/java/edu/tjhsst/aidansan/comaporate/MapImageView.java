@@ -1,5 +1,6 @@
 package edu.tjhsst.aidansan.comaporate;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -33,6 +34,7 @@ public class MapImageView extends ImageView {
     private Paint myPaint;
     private ArrayList<Waypoint> arrayList; //change this later maybe?
     private float myRadius;
+    private xInterface delegate;
 
     public MapImageView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -57,26 +59,6 @@ public class MapImageView extends ImageView {
         if(!touched) {
             arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
         }
-        List<NameValuePair> nameValuePairs = new ArrayList<>(3);
-        JSONArray jArray = new JSONArray();
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://www.tjhsst.edu/~2016malder/receiver.php");
-        for(Waypoint way : arrayList)
-        {
-            JSONObject json = way.getJSONObject();
-            jArray.put(json);
-        }
-        nameValuePairs.add(new BasicNameValuePair("id", "12345"));
-        nameValuePairs.add(new BasicNameValuePair("mname", "TJ"));
-        nameValuePairs.add(new BasicNameValuePair("points", jArray.toString()));
-        try
-        {
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            httpclient.execute(httppost);
-        }
-        catch (IOException e1) {
-            Log.i("Error", "sending data to website");
-        }
         postInvalidate();
         return true;
     }
@@ -95,8 +77,10 @@ public class MapImageView extends ImageView {
         myPaint.setStyle(Paint.Style.FILL);
         myPaint.setColor(Color.RED); //always red?
     }
+
     public void getHTMLData()
     {
 
     }
+
 }
