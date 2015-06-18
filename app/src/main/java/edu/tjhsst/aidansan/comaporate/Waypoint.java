@@ -16,6 +16,7 @@ public class Waypoint {
             myJSONObject.put("y", y);
             myJSONObject.put("radius", r);
             myJSONObject.put("mname", mapName);
+            myJSONObject.put("name", (""+x).replace('.', 'D') + "C" + (""+y).replace('.', 'D'));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -27,6 +28,9 @@ public class Waypoint {
 
     public boolean hasTouched(float x, float y){
         return Math.sqrt(Math.pow((x-getX()), 2)+Math.pow((y-getY()), 2))<getRadius();
+    }
+    public String getName() throws JSONException {
+        return (String)myJSONObject.get("name");
     }
     public String getMname() throws JSONException {
         return (String)myJSONObject.get("mname");

@@ -8,8 +8,14 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -30,6 +36,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 2016asan on 5/22/2015.
@@ -38,6 +45,7 @@ public class MapImageView extends ImageView {
     private Paint myPaint;
     private ArrayList<Waypoint> arrayList; //change this later maybe?
     private float myRadius;
+    private String pointString = "nothing";
 
     public MapImageView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -65,33 +73,80 @@ public class MapImageView extends ImageView {
         Firebase fbase = new Firebase("https://comaporate.firebaseio.com/");
         for(Waypoint w : arrayList)
         {
-            String x = w.getX()+"";
-            String y = w.getY()+"";
-            x = x.replace('.', 'D');
-            y = y.replace('.', 'D');
             try {
-                fbase.child(w.getMname()).child(x + "*" + y).setValue(w.getJSONObject().toString());
+                String name = w.getName();
+                fbase.child(w.getMname()).child(name).setValue(w.getJSONObject().toString());
             } catch (JSONException e1) {e1.printStackTrace();}
         }
+//        try {
+//            Log.i("", getPoint("TJ", "623D0C968D0"));
+//        } catch (JSONException e1) {
+//            e1.printStackTrace();
+//        }
+        searchByTag("name", "623D0C968D0");
         postInvalidate();
         return true;
     }
-    public JSONArray getPoints(String mname)
+    public String getPoint(String mname, String name) throws JSONException {
+        Firebase fbase = new Firebase("https://comaporate.firebaseio.com/");
+        fbase.child(mname).child(name).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                pointString = (snapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(FirebaseError error) {
+            }
+        });
+        //makeFakeDataChange();
+        return pointString;
+    }
+    public ArrayList<Waypoint> searchByTag(String tname, String tvalue)
+    {
+        ArrayList<Waypoint> waylist = new ArrayList<Waypoint>();
+        Firebase fbase = new Firebase("https://comaporate.firebaseio.com/");
+        Query q = fbase.orderByChild(tname).equalTo(tvalue);
+        q.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChild) {
+                try {
+                    JSONObject value = new JSONObject(snapshot.getValue().toString());
+                    Log.i("tags", snapshot.getValue().toString());
+                } catch (JSONException e) {e.printStackTrace();}
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+
+        });
+        return waylist;
+    }
+    public void makeFakeDataChange()
     {
         Firebase fbase = new Firebase("https://comaporate.firebaseio.com/");
-//        fbase.child("message").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//                System.out.println(snapshot.getValue());  //prints "Do you have data? You'll love Firebase."
-//            }
-//            @Override public void onCancelled(FirebaseError error) { }
-//        });
-        return null;
+        fbase.child("meme").setValue("fakechange");
     }
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
-        //Log.i("arraylist", arrayList.toString());
         for(Waypoint w: arrayList) {
             canvas.drawCircle(w.getX(), w.getY(), w.getRadius(), myPaint); //fix this 20 is prob not what you want
         }
