@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class Waypoint {
     private JSONObject myJSONObject;
 
-    public Waypoint(float x, float y, float r, String mapName){
+    public Waypoint(String name, float x, float y, float r, String mapName){
         myJSONObject = new JSONObject();
         try {
             myJSONObject.put("x", x);
