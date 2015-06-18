@@ -9,9 +9,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
+
+import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity implements MapDialogInterface{
+public class MainActivity extends ActionBarActivity{
     private MapImageView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +26,28 @@ public class MainActivity extends ActionBarActivity implements MapDialogInterfac
         }
         mapView = (MapImageView) findViewById(R.id.mapView);
         mapView.setImageResource(R.drawable.map2);
-        mapView.setDelegate(this);
-
+        mapView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                float myX = e.getX();
+                float myY = e.getY();
+                ArrayList<Waypoint> arrayList = mapView.getArrayList();
+                Log.i("Coordinate of click", myX + ", " + myY);
+                boolean touched = false;
+                for (Waypoint w : arrayList) {
+                    if (w.hasTouched(myX, myY))
+                    {
+                        touched = true;
+                        //Allow editing of touched waypoint with tag/value
+                    }
+                }
+                if(!touched) {
+                    arrayList.add(new Waypoint(myX, myY, mapView.getRadius(), "TJ"));
+                }
+                mapView.postInvalidate();
+                return true;
+            }
+        });
     }
 
 

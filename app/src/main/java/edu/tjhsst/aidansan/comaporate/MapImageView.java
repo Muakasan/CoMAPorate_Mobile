@@ -18,34 +18,12 @@ public class MapImageView extends ImageView {
     private Paint myPaint;
     private ArrayList<Waypoint> arrayList; //change this later maybe?
     private float myRadius;
-    private MapDialogInterface delegate;
 
     public MapImageView(Context context, AttributeSet attrs){
         super(context, attrs);
         setUpPaint();
         arrayList = new ArrayList<>();
         myRadius = 20;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent e) {
-        delegate.showAddWaypointDialog();
-        float myX = e.getX();
-        float myY = e.getY();
-        Log.i("Coordinate of click", myX + ", " + myY);
-        boolean touched = false;
-        for (Waypoint w : arrayList) {
-            if (w.hasTouched(myX, myY))
-            {
-                touched = true;
-                //Allow editing of touched waypoint with tag/value
-            }
-         }
-        if(!touched) {
-            arrayList.add(new Waypoint(myX, myY, myRadius, "TJ"));
-        }
-        postInvalidate();
-        return true;
     }
 
     @Override
@@ -63,13 +41,12 @@ public class MapImageView extends ImageView {
         myPaint.setColor(Color.RED); //always red?
     }
 
-    public void getHTMLData()
-    {
-
+    public float getRadius(){
+        return myRadius;
     }
 
-    public void setDelegate(Activity activity){
-        delegate = (MapDialogInterface)activity;
+    public ArrayList getArrayList(){
+        return arrayList;
     }
 
 }
