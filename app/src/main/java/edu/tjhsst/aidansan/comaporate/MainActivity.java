@@ -14,7 +14,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity{
+public class MainActivity extends ActionBarActivity {
     private MapImageView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class MainActivity extends ActionBarActivity{
                 return true;
             }
         });
+        showAddWaypointDialog();
     }
 
 
@@ -74,6 +75,6 @@ public class MainActivity extends ActionBarActivity{
     }
 
     public void showAddWaypointDialog(){
-        Log.i("Stuff", "Yay");
+
     }
 }

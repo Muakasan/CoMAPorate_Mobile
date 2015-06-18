@@ -21,7 +21,11 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:hint="@string/tab_value_hint"/>
+
                 <Button
+                    android:id="@+id/search_button"
+                    android:layout_height="fill_parent"
+                    android:layout_width="fill_parent"
                     android:text="@string/button_search"/>
 
             </TableRow>

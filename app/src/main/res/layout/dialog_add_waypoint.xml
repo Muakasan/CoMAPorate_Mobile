@@ -15,4 +15,15 @@
         android:layout_height="fill_parent"
         android:hint="@string/tab_value_hint"/>
 
+    <Button
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:id="@+id/add_waypoint_submit_button"
+        android:text="@string/waypoint_submit_text"/>
+
+    <Button
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:id="@+id/add_waypoint_cancel_button"
+        android:text="@string/waypoint_cancel_text"/>
 </LinearLayout>
