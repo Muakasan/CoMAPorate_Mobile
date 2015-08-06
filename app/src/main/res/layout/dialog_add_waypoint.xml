@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:id="@+id/dialog_add_waypoint">
     <EditText
         android:id="@+id/tag_name_search_tb"
         android:layout_width="fill_parent"
@@ -15,4 +15,15 @@
         android:layout_height="fill_parent"
         android:hint="@string/tab_value_hint"/>
 
+    <Button
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:id="@+id/add_waypoint_submit_button"
+        android:text="@string/waypoint_submit_text"/>
+
+    <Button
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:id="@+id/add_waypoint_cancel_button"
+        android:text="@string/waypoint_cancel_text"/>
 </LinearLayout>
